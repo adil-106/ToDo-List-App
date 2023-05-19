@@ -5,10 +5,10 @@
 
     <div class="box">
         <% for (var i = 0; i < item.length; i++){ %>
-            <div class="item">
-                <input type="checkbox">
-                <p><%=item[i]%></p>
-            </div>
+                <div class="item">
+                    <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+                    <p><%=item[i].name%></p>
+                </div>
         <% } %>
 
         <form action="/" method="post" class="item">
