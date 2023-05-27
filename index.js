@@ -134,21 +134,41 @@ app.post("/", function(req,res){
 
 app.post("/delete", function(req,res){
     const checkedItemId = req.body.checkbox;
+    const listName = req.body.hiddenInput;
+    const currentDate = date.getDate();
+    console.log(listName);
 
-
-    Item.findByIdAndRemove(checkedItemId)
-    .then(function(removedId){
-        if(removedId){
-            console.log("Removed User: ", removedId);
-            res.redirect("/");
-        }
-        else{
-            console.log("Id not found");
-        }
-    })
-    .catch(function(err){
-        console.log("Error removing the item: ", err);
-    });
+    if(listName === currentDate){
+        Item.findByIdAndRemove(checkedItemId)
+        .then(function(removedId){
+            if(removedId){
+                console.log("Removed User: ", removedId);
+                res.redirect("/");
+            }
+            else{
+                console.log("Id not found");
+            }
+        })
+        .catch(function(err){
+            console.log("Error removing the item: ", err);
+        });
+    }
+    else {
+        List.findOneAndUpdate({name:listName},{$pull:{items:{_id:checkedItemId}}},{new:true})
+        .then(function(updatedItem){
+            if(updatedItem){
+                console.log("Updated Item:",updatedItem);
+                res.redirect("/"+listName);
+            }
+            else {
+                console.log("Item not found")
+            }
+        })
+        .catch(function(err){
+            console.log("Error in updating the item:",err);
+        })
+    }
+    
 });
 
 
