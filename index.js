@@ -6,7 +6,8 @@ const _ = require('lodash');
 
 const app = express();
 
-mongoose.connect("mongodb://127.0.0.1:27017/toDoListAppDB");
+// mongoose.connect("mongodb://127.0.0.1:27017/toDoListAppDB");
+mongoose.connect("mongodb+srv://adiliqbal:mithani@cluster0.afcqcji.mongodb.net/?retryWrites=true&w=majority");
 
 // let items = [];
 // let workItems = [];
